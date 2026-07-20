@@ -54,6 +54,8 @@ pub struct Config {
     pub verbose_entry: bool,
     /// Whether to print the current span before exiting it.
     pub verbose_exit: bool,
+    /// Whether to print the span duration when the span closes.
+    pub span_duration: bool,
     /// Print the path leading up to a span if a different span was entered concurrently
     pub span_retrace: bool,
     /// Whether to print squiggly brackets (`{}`) around the list of fields in a span.
@@ -108,6 +110,13 @@ impl Config {
     pub fn with_verbose_exit(self, verbose_exit: bool) -> Self {
         Self {
             verbose_exit,
+            ..self
+        }
+    }
+
+    pub fn with_span_duration(self, span_duration: bool) -> Self {
+        Self {
+            span_duration,
             ..self
         }
     }
@@ -175,6 +184,7 @@ impl Default for Config {
             wraparound: usize::MAX,
             verbose_entry: false,
             verbose_exit: false,
+            span_duration: false,
             span_retrace: false,
             bracketed_fields: false,
             deferred_spans: false,

@@ -198,6 +198,14 @@ where
         }
     }
 
+    /// Whether to print the elapsed span duration when the span is closed.
+    pub fn with_span_duration(self, enabled: bool) -> Self {
+        Self {
+            config: self.config.with_span_duration(enabled),
+            ..self
+        }
+    }
+
     /// Whether to print the currently active span's message again if another span was entered in
     /// the meantime
     /// This helps during concurrent or multi-threaded events where threads are entered, but not
@@ -327,6 +335,7 @@ where
     {
         let ext = span.extensions();
         let data = ext.get::<Data>().expect("span does not have data");
+        let span_duration = self.format_span_duration(data, style);
 
         let mut current_buf = &mut bufs.current_buf;
 
@@ -340,7 +349,7 @@ where
             SpanMode::Open { .. } | SpanMode::Event => true,
             // Print the parent of a new span again before entering the child
             SpanMode::PreOpen if self.config.verbose_entry => true,
-            SpanMode::Close { verbose } => verbose,
+            SpanMode::Close { verbose } => verbose || span_duration.is_some(),
             // Generated if `span_retrace` is enabled
             SpanMode::Retrace { .. } => true,
             // Generated if `verbose_exit` is enabled
@@ -385,6 +394,9 @@ where
                 )
                 .unwrap();
             }
+            if let Some(duration) = span_duration.as_deref() {
+                write!(current_buf, " duration={duration}").unwrap();
+            }
         }
 
         bufs.indent_current(indent, &self.config, style);
@@ -404,6 +416,23 @@ where
         self.timer
             .style_timestamp(self.config.ansi, data.start.elapsed(), buf)
             .unwrap()
+    }
+
+    fn format_span_duration(&self, data: &Data, style: SpanMode) -> Option<String> {
+        if !self.config.span_duration || !matches!(style, SpanMode::Close { .. }) {
+            return None;
+        }
+
+        let mut duration = String::new();
+        self.timer
+            .style_timestamp(self.config.ansi, data.start.elapsed(), &mut duration)
+            .unwrap();
+
+        if duration.is_empty() {
+            None
+        } else {
+            Some(duration)
+        }
     }
 
     fn is_recursive() -> Option<RecursiveGuard> {
