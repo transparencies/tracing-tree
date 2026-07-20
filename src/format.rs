@@ -206,7 +206,7 @@ impl Buffers {
     }
 
     pub fn flush_current_buf(&mut self, mut writer: impl io::Write) {
-        write!(writer, "{}", &self.current_buf).unwrap();
+        write!(writer, "{}", self.current_buf).unwrap();
         self.current_buf.clear();
     }
 
@@ -223,15 +223,15 @@ impl Buffers {
             self.current_buf.push('\n');
 
             match style {
-                SpanMode::Close { .. } | SpanMode::PostClose => {
-                    if indent > 0 && (indent + 1) % config.wraparound == 0 {
-                        self.indent_buf.push_str(&prefix);
-                        for _ in 0..(indent % config.wraparound * config.indent_amount) {
-                            self.indent_buf.push_str(LINE_HORIZ);
-                        }
-                        self.indent_buf.push_str(LINE_OPEN);
-                        self.indent_buf.push('\n');
+                SpanMode::Close { .. } | SpanMode::PostClose
+                    if indent > 0 && (indent + 1) % config.wraparound == 0 =>
+                {
+                    self.indent_buf.push_str(&prefix);
+                    for _ in 0..(indent % config.wraparound * config.indent_amount) {
+                        self.indent_buf.push_str(LINE_HORIZ);
                     }
+                    self.indent_buf.push_str(LINE_OPEN);
+                    self.indent_buf.push('\n');
                 }
                 _ => {}
             }
@@ -253,15 +253,15 @@ impl Buffers {
         // Render something when wraparound occurs so the user is aware of it
         if config.indent_lines {
             match style {
-                SpanMode::PreOpen | SpanMode::Open { .. } => {
-                    if indent > 0 && (indent + 1) % config.wraparound == 0 {
-                        self.current_buf.push_str(&prefix);
-                        for _ in 0..(indent % config.wraparound * config.indent_amount) {
-                            self.current_buf.push_str(LINE_HORIZ);
-                        }
-                        self.current_buf.push_str(LINE_CLOSE);
-                        self.current_buf.push('\n');
+                SpanMode::PreOpen | SpanMode::Open { .. }
+                    if indent > 0 && (indent + 1) % config.wraparound == 0 =>
+                {
+                    self.current_buf.push_str(&prefix);
+                    for _ in 0..(indent % config.wraparound * config.indent_amount) {
+                        self.current_buf.push_str(LINE_HORIZ);
                     }
+                    self.current_buf.push_str(LINE_CLOSE);
+                    self.current_buf.push('\n');
                 }
                 _ => {}
             }
