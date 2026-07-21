@@ -1,6 +1,24 @@
 use tracing::{debug, error, info, span, warn, Level};
 use tracing_subscriber::{layer::SubscriberExt, registry::Registry};
-use tracing_tree::HierarchicalLayer;
+use tracing_tree::{time::FormatTime, HierarchicalLayer};
+
+#[derive(Debug, Clone, Copy)]
+struct ExampleDurationTimer;
+
+impl FormatTime for ExampleDurationTimer {
+    fn format_time(&self, _w: &mut impl std::fmt::Write) -> std::fmt::Result {
+        Ok(())
+    }
+
+    fn style_timestamp(
+        &self,
+        _ansi: bool,
+        _elapsed: std::time::Duration,
+        w: &mut impl std::fmt::Write,
+    ) -> std::fmt::Result {
+        write!(w, "123ms")
+    }
+}
 
 #[allow(dead_code)]
 #[derive(Debug)]
@@ -15,7 +33,9 @@ fn main() {
         .with_indent_amount(2)
         .with_thread_names(true)
         .with_thread_ids(true)
-        .with_verbose_exit(false)
+        .with_timer(ExampleDurationTimer)
+        .with_verbose_exit(true)
+        .with_span_duration(true)
         .with_verbose_entry(false)
         .with_targets(true);
 

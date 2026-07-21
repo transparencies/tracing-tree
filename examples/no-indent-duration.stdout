@@ -1,26 +1,44 @@
 1:main no_indent_duration::hierarchical-example version=0.1
 1:main   no_indent_duration::server host="localhost", port=8080
-1:main    INFO no_indent_duration starting
-1:main    INFO no_indent_duration listening
+1:main   123ms INFO no_indent_duration starting
+1:main   123ms INFO no_indent_duration listening
 1:main     no_indent_duration::conn peer_addr="82.9.9.9", port=42381
-1:main      DEBUG no_indent_duration connected
-1:main      DEBUG no_indent_duration message received, length=2
+1:main     123ms DEBUG no_indent_duration connected
+1:main     123ms DEBUG no_indent_duration message received, length=2
+1:main     no_indent_duration::conn peer_addr="82.9.9.9", port=42381 duration=123ms
+1:main   no_indent_duration::server host="localhost", port=8080
 1:main     no_indent_duration::conn peer_addr="8.8.8.8", port=18230
-1:main      DEBUG no_indent_duration connected
+1:main     123ms DEBUG no_indent_duration connected
+1:main     no_indent_duration::conn peer_addr="8.8.8.8", port=18230 duration=123ms
+1:main   no_indent_duration::server host="localhost", port=8080
 1:main     no_indent_duration::foomp 42 <- format string, normal_var=43
-1:main      ERROR no_indent_duration hello
+1:main     123ms ERROR no_indent_duration hello
+1:main     no_indent_duration::foomp 42 <- format string, normal_var=43 duration=123ms
+1:main   no_indent_duration::server host="localhost", port=8080
 1:main     no_indent_duration:: val=PrettyPrintMe {
 1:main           value_a: 42,
 1:main           value_b: "hello",
 1:main       }
-1:main      ERROR no_indent_duration hello
+1:main     123ms ERROR no_indent_duration hello
+1:main     no_indent_duration:: val=PrettyPrintMe {
+1:main           value_a: 42,
+1:main           value_b: "hello",
+1:main       } duration=123ms
+1:main   no_indent_duration::server host="localhost", port=8080
 1:main     no_indent_duration::conn peer_addr="82.9.9.9", port=42381
-1:main      WARN no_indent_duration weak encryption requested, algo="xor"
-1:main      DEBUG no_indent_duration response sent, length=8
-1:main      DEBUG no_indent_duration disconnected
+1:main     123ms WARN no_indent_duration weak encryption requested, algo="xor"
+1:main     123ms DEBUG no_indent_duration response sent, length=8
+1:main     123ms DEBUG no_indent_duration disconnected
+1:main     no_indent_duration::conn peer_addr="82.9.9.9", port=42381 duration=123ms
+1:main   no_indent_duration::server host="localhost", port=8080
 1:main     no_indent_duration::conn peer_addr="8.8.8.8", port=18230
-1:main      DEBUG no_indent_duration message received, length=5
-1:main      DEBUG no_indent_duration response sent, length=8
-1:main      DEBUG no_indent_duration disconnected
-1:main    WARN no_indent_duration internal error
-1:main    INFO no_indent_duration exit
+1:main     123ms DEBUG no_indent_duration message received, length=5
+1:main     123ms DEBUG no_indent_duration response sent, length=8
+1:main     123ms DEBUG no_indent_duration disconnected
+1:main     no_indent_duration::conn peer_addr="8.8.8.8", port=18230 duration=123ms
+1:main   no_indent_duration::server host="localhost", port=8080
+1:main   123ms WARN no_indent_duration internal error
+1:main   123ms INFO no_indent_duration exit
+1:main   no_indent_duration::server host="localhost", port=8080 duration=123ms
+1:main no_indent_duration::hierarchical-example version=0.1
+1:main no_indent_duration::hierarchical-example version=0.1 duration=123ms

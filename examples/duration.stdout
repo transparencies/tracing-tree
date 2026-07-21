@@ -1,52 +1,52 @@
 1:main┐duration::hierarchical-example version=0.1
 1:main└┐duration::hierarchical-example version=0.1
 1:main └┐duration::server host="localhost", port=8080
-1:main  ├─ INFO duration starting
-1:main  ├─ INFO duration listening
+1:main  ├─123ms INFO duration starting
+1:main  ├─123ms INFO duration listening
 1:main  └┐duration::server host="localhost", port=8080
 1:main   └┐duration::conn peer_addr="82.9.9.9", port=42381
-1:main    ├─ DEBUG duration connected
-1:main    ├─ DEBUG duration message received, length=2
-1:main   ┌┘duration::conn peer_addr="82.9.9.9", port=42381
+1:main    ├─123ms DEBUG duration connected
+1:main    ├─123ms DEBUG duration message received, length=2
+1:main   ┌┘duration::conn peer_addr="82.9.9.9", port=42381 duration=123ms
 1:main  ┌┘duration::server host="localhost", port=8080
 1:main  └┐duration::server host="localhost", port=8080
 1:main   └┐duration::conn peer_addr="8.8.8.8", port=18230
-1:main    ├─ DEBUG duration connected
-1:main   ┌┘duration::conn peer_addr="8.8.8.8", port=18230
+1:main    ├─123ms DEBUG duration connected
+1:main   ┌┘duration::conn peer_addr="8.8.8.8", port=18230 duration=123ms
 1:main  ┌┘duration::server host="localhost", port=8080
 1:main  └┐duration::server host="localhost", port=8080
 1:main   └┐duration::foomp 42 <- format string, normal_var=43
-1:main    ├─ ERROR duration hello
-1:main   ┌┘duration::foomp 42 <- format string, normal_var=43
+1:main    ├─123ms ERROR duration hello
+1:main   ┌┘duration::foomp 42 <- format string, normal_var=43 duration=123ms
 1:main  ┌┘duration::server host="localhost", port=8080
 1:main  └┐duration::server host="localhost", port=8080
 1:main   └┐duration:: val=PrettyPrintMe {
 1:main    │      value_a: 42,
 1:main    │      value_b: "hello",
 1:main    │  }
-1:main    ├─ ERROR duration hello
+1:main    ├─123ms ERROR duration hello
 1:main   ┌┘duration:: val=PrettyPrintMe {
 1:main   │      value_a: 42,
 1:main   │      value_b: "hello",
-1:main   │  }
+1:main   │  } duration=123ms
 1:main  ┌┘duration::server host="localhost", port=8080
 1:main  └┐duration::server host="localhost", port=8080
 1:main   └┐duration::conn peer_addr="82.9.9.9", port=42381
-1:main    ├─ WARN duration weak encryption requested, algo="xor"
-1:main    ├─ DEBUG duration response sent, length=8
-1:main    ├─ DEBUG duration disconnected
-1:main   ┌┘duration::conn peer_addr="82.9.9.9", port=42381
+1:main    ├─123ms WARN duration weak encryption requested, algo="xor"
+1:main    ├─123ms DEBUG duration response sent, length=8
+1:main    ├─123ms DEBUG duration disconnected
+1:main   ┌┘duration::conn peer_addr="82.9.9.9", port=42381 duration=123ms
 1:main  ┌┘duration::server host="localhost", port=8080
 1:main  └┐duration::server host="localhost", port=8080
 1:main   └┐duration::conn peer_addr="8.8.8.8", port=18230
-1:main    ├─ DEBUG duration message received, length=5
-1:main    ├─ DEBUG duration response sent, length=8
-1:main    ├─ DEBUG duration disconnected
-1:main   ┌┘duration::conn peer_addr="8.8.8.8", port=18230
+1:main    ├─123ms DEBUG duration message received, length=5
+1:main    ├─123ms DEBUG duration response sent, length=8
+1:main    ├─123ms DEBUG duration disconnected
+1:main   ┌┘duration::conn peer_addr="8.8.8.8", port=18230 duration=123ms
 1:main  ┌┘duration::server host="localhost", port=8080
-1:main  ├─ WARN duration internal error
-1:main  ├─ ERROR duration this is a log message
-1:main  ├─ INFO duration exit
-1:main ┌┘duration::server host="localhost", port=8080
+1:main  ├─123ms WARN duration internal error
+1:main  ├─123ms ERROR duration this is a log message
+1:main  ├─123ms INFO duration exit
+1:main ┌┘duration::server host="localhost", port=8080 duration=123ms
 1:main┌┘duration::hierarchical-example version=0.1
-1:main┘duration::hierarchical-example version=0.1
+1:main┘duration::hierarchical-example version=0.1 duration=123ms
